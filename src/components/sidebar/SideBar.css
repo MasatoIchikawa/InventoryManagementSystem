@@ -1,0 +1,16 @@
+.side{
+    box-sizing: border-box;
+    position: fixed;
+    color: #C0C0C0;
+    background-color: #3B3B3B;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    z-index: 1;
+    overflow: auto;
+}
+
+.structure{
+    padding: 0;
+}

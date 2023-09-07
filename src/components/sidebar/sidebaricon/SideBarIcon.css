@@ -1,0 +1,35 @@
+a{
+    text-decoration:none;
+    color: #C0C0C0;;
+}
+
+.sideiconwrapper{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 8px;
+    /* margin-top: 16px; */
+}
+
+.sidebox{
+    display: flex;
+    margin-top: 12px;
+    user-select: none;
+}
+.sidebox.child{
+    padding-left: 16px;
+}
+.sidebox:hover{
+    cursor: pointer;
+}
+
+.sideicon{
+    width: 24px;
+    height: 24px;
+}
+.sideicontext{
+    font-size: 0.9rem;
+    width: 90%;
+    margin: 0;
+    padding-left: 8px;
+}
