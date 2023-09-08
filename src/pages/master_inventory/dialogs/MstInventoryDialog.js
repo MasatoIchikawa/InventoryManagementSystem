@@ -76,7 +76,6 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
         const row2 = JSON.parse(json);
         for(let i = 0; i < row2.length; i++){
           const item = row2[i];
-          console.log(item);
           setName(item.inventory_name);
           setKana(item.inventory_kana);
           setPicture(item.picture);
@@ -149,7 +148,7 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
             <div>
               <span className="dialog-label">画像</span>
               <div className="dialog-filelabel">
-                <input type="file" accept='image/*' className="dialog-file" id="dialog-file" value={picture} onChange={previewImage}/>
+                <input type="file" accept='image/*' className="dialog-file" id="dialog-file" value={picture ?? ''} onChange={previewImage}/>
                 <img id="dialog-preview" src="" width="100" height="100"/>
               </div>
             </div>
@@ -177,22 +176,22 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
 
             <label>
                 <span className="dialog-label">価格</span>
-                <input type="text" className="dialog-textbox" value={price} onChange={(e) => setPrice(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={price ?? ''} onChange={(e) => setPrice(e.target.value)}/>
             </label>
 
             <label>
                 <span className="dialog-label">単位原価</span>
-                <input type="text" className="dialog-textbox" value={pricecost} onChange={(e) => setPricecost(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={pricecost ?? ''} onChange={(e) => setPricecost(e.target.value)}/>
             </label>
 
             <label>
                 <span className="dialog-label">最大在庫数</span>
-                <input type="text" className="dialog-textbox" value={max} onChange={(e) => setMax(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={max ?? ''} onChange={(e) => setMax(e.target.value)}/>
             </label>
 
             <label>
                 <span className="dialog-label">最低在庫数</span>
-                <input type="text" className="dialog-textbox" value={min} onChange={(e) => setMin(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={min ?? ''} onChange={(e) => setMin(e.target.value)}/>
             </label>
 
             <label>
