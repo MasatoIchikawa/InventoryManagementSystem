@@ -4,8 +4,9 @@ import { Button, Dialog, DialogTitle } from "@mui/material";
 
 import "./MstInventoryDialog.css";
 
-function post (onClose, name, kana, pic, category, jan, sku, unit, pri, pricost, max, min, lo, u, n, display){
+function post (onClose, id, name, kana, pic, category, jan, sku, unit, pri, pricost, max, min, lo, u, n, display){
   const json = {
+    inventory_id: id,
     inventory_name: name,
     inventory_kana: kana,
     picture: pic,
@@ -46,7 +47,8 @@ function post (onClose, name, kana, pic, category, jan, sku, unit, pri, pricost,
   })
 }
 
-function MstInventoryDialog ({ id, isOpen, onClose }){
+function MstInventoryDialog ({ rowid, isOpen, onClose }){
+  const [id, setID] = useState(0);
   const [name, setName] = useState("");
   const [kana, setKana] = useState("");
   const [picture, setPicture] = useState(null);
@@ -62,13 +64,11 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
   const [url, setUrl] = useState("");
   const [note, setNote] = useState("");
   const [display, setDisplay] = useState(1);
-  // const insert_at = useRef(null);
-  // const update_at = useRef(null);
-  // const insert_user_id = useRef(null);
 
-  if(isOpen && id !== 0){
+  if(!isOpen) return <></>;
+  if(rowid !== 0 && rowid !== id){
     const params = {
-        "inventory_id": id,
+        "inventory_id": rowid,
     };
     const query = new URLSearchParams(params);
     fetch('/mstinventory_edit?' + query)
@@ -76,6 +76,7 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
         const row2 = JSON.parse(json);
         for(let i = 0; i < row2.length; i++){
           const item = row2[i];
+          setID(item.inventory_id);
           setName(item.inventory_name);
           setKana(item.inventory_kana);
           setPicture(item.picture);
@@ -96,7 +97,8 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
   }
 
   const handleClose = () => {
-    // onClose();
+    setID(0);
+    onClose();
   };
 
   const handleOptionChange = (display) => {
@@ -119,25 +121,29 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
     fileReader.readAsDataURL(obj.target.files[0]);
   }
 
+
   return (
     <>
-      <Dialog onClose={handleClose} open={isOpen}>
+      <Dialog open={isOpen}>
         <DialogTitle>在庫マスタ -{id === 0 ? "新規登録" : "編集"}-</DialogTitle>
         <div className="editdialog">
             <label>
                 <span className="dialog-label">名称</span>
-                <input type="text" className="dialog-textbox" value={name} onChange={(e) => setName(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={name ?? ''} onChange={(e) => {
+
+                  setName(e.target.value);
+                }}/>
             </label>
 
             <label>
                 <span className="dialog-label">フリガナ</span>
-                <input type="text" className="dialog-textbox" value={kana} onChange={(e) => setKana(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={kana ?? ''} onChange={(e) => setKana(e.target.value)}/>
             </label>
 
             <label>
                 <span className="dialog-label">カテゴリ</span>
                 <label className="dialog-selectbox">
-                  <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                  <select value={category ?? 0} onChange={(e) => setCategory(e.target.value)}>
                     <option value="0"></option>
                     <option value="1">カテゴリA</option>
                     <option value="2">カテゴリB</option>
@@ -155,18 +161,18 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
 
             <label>
                 <span className="dialog-label">JANコード</span>
-                <input type="text" className="dialog-textbox" value={jancode} onChange={(e) => setJancode(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={jancode ?? ''} onChange={(e) => setJancode(e.target.value)}/>
             </label>
 
             <label>
                 <span className="dialog-label">SKUコード</span>
-                <input type="text" className="dialog-textbox" value={skucode} onChange={(e) => setSkucode(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={skucode ?? ''} onChange={(e) => setSkucode(e.target.value)}/>
             </label>
 
             <label>
                 <span className="dialog-label">単位</span>
                 <label className="dialog-selectbox">
-                  <select value={unit} onChange={(e) => setUnit(e.target.value)}>
+                  <select value={unit ?? 0} onChange={(e) => setUnit(e.target.value)}>
                     <option value="0"></option>
                     <option value="1">個</option>
                     <option value="2">枚</option>
@@ -196,17 +202,17 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
 
             <label>
                 <span className="dialog-label">保管場所</span>
-                <input type="text" className="dialog-textbox" value={location} onChange={(e) => setLocation(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={location ?? ''} onChange={(e) => setLocation(e.target.value)}/>
             </label>
 
             <label>
                 <span className="dialog-label">URL</span>
-                <input type="text" className="dialog-textbox" value={url} onChange={(e) => setUrl(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={url ?? ''} onChange={(e) => setUrl(e.target.value)}/>
             </label>
 
             <label>
                 <span className="dialog-label">説明</span>
-                <input type="text" className="dialog-textbox" value={note} onChange={(e) => setNote(e.target.value)}/>
+                <input type="text" className="dialog-textbox" value={note ?? ''} onChange={(e) => setNote(e.target.value)}/>
             </label>
 
             <div>
@@ -225,8 +231,8 @@ function MstInventoryDialog ({ id, isOpen, onClose }){
 
         </div>
 
-        <Button onClick={() => {post(onClose, name, kana, picture, category, jancode, skucode, unit, price, pricecost, max, min, location, url, note, display)}}>登録</Button>
-        <Button onClick={() => onClose()}>閉じる</Button>
+        <Button onClick={() => {post(onClose, id, name, kana, picture, category, jancode, skucode, unit, price, pricecost, max, min, location, url, note, display)}}>登録</Button>
+        <Button onClick={handleClose}>閉じる</Button>
       </Dialog>
     </>
   );

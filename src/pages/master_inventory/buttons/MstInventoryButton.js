@@ -24,7 +24,7 @@ function MstInventoryButton(){
         <section className="buttonsection">
             {buttons.map((item) => <CustomButton props={item} key={item.name}/>)}
 
-            <MstInventoryDialog id={0} isOpen={open} onClose={handleClose} />
+            <MstInventoryDialog rowid={0} isOpen={open} onClose={handleClose} />
         </section>
     );
 }

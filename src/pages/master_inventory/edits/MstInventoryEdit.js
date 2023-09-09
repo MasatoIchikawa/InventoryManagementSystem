@@ -20,7 +20,7 @@ const MstInventoryEdit = ({ rowId }) => {
         編集
       </Button>
 
-      <MstInventoryDialog id={rowId} isOpen={open} onClose={handleClose} />
+      <MstInventoryDialog rowid={rowId} isOpen={open} onClose={handleClose} />
     </div>
   );
 };
