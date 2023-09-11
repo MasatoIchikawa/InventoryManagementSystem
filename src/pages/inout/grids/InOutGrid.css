@@ -1,0 +1,4 @@
+.mstinventorygrid{
+    min-height: calc(100vh - 210px);
+    margin: 8px;
+}
