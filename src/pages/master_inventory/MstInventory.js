@@ -8,6 +8,7 @@ import MstInventoryPicture from './imgs/MstInventoryPicture.js';
 import "./MstInventory.css";
 
 function MstInventory(){
+  const [reload, setReload] = useState(new Date());
   const [json, setJson] = useState();
 
   const rows = [];
@@ -35,7 +36,7 @@ function MstInventory(){
           location: item.location,
           url: item.url,
           note: item.note,
-          display: item.display_flag
+          display: item.display_flag === 1 ? '●' : ''
         });
       }
     }
@@ -47,7 +48,7 @@ function MstInventory(){
         sortable: false,
         width: 90,
         disableClickEventBubbling: true,
-        renderCell: (params) => <MstInventoryDelete rowId={ params.id } />
+        renderCell: (params) => <MstInventoryDelete rowId={params.id} setReload={setReload} />
       },
       {
         field: 'editBtn',
@@ -55,7 +56,7 @@ function MstInventory(){
         sortable: false,
         width: 90,
         disableClickEventBubbling: true,
-        renderCell: (params) => <MstInventoryEdit rowId={ params.id } />
+        renderCell: (params) => <MstInventoryEdit rowId={params.id} setReload={setReload} />
       },
       {
         field: 'id',
@@ -128,13 +129,17 @@ function MstInventory(){
 
     const text = jaJP.components.MuiDataGrid.defaultProps.localeText;
 
+
     return (
         <>
-        <MstInventoryButton />
+        <MstInventoryButton setReload={setReload} />
         <section className='mstinventorygrid'>
             <DataGrid 
             rows={rows} 
-            columns={cols} 
+            columns={cols}
+            disableColumnFilter={false}
+            filterMode="server"
+            showColumnRightBorder={true}
             localeText={text}
             />
         </section>

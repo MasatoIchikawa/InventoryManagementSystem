@@ -26,7 +26,7 @@ function post (id){
   })
 }
 
-const MstInventoryDelete = ({ rowId }) => {
+const MstInventoryDelete = ({ rowId, setReload }) => {
   const [open, setOpen] = useState(false); // 確認ダイアログの表示/非表示
 
   const handleOpen = () => {
@@ -35,6 +35,7 @@ const MstInventoryDelete = ({ rowId }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setReload(new Date());
   };
 
   const deleteRow = (rowId, e) => {

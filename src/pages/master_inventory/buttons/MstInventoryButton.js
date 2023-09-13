@@ -4,7 +4,7 @@ import CustomButton from "../../../components/buttonlist/button/CustomButton.js"
 import MstInventoryDialog from "../dialogs/MstInventoryDialog.js";
 import "./MstInventoryButton.css";
 
-function MstInventoryButton(){
+function MstInventoryButton({ setReload }){
     const [open, setOpen] = useState(false);
 
     const handleClickOpenSimple = () => {
@@ -13,7 +13,7 @@ function MstInventoryButton(){
   
     const handleClose = () => {
       setOpen(false);
-      window.location.reload();
+      setReload(new Date());
     };
 
     const buttons = [{

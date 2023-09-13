@@ -34,14 +34,11 @@ function post (onClose, id, name, kana, pic, category, jan, sku, unit, pri, pric
     body: JSON.stringify(json)
   })
   .then(response => {
-    if(response.status === 200){
-      return response.json();
+    if(response.status !== 200){
+      console.warm('mstinventory_insertが失敗しました');
     }
-    else{
-      console.warm('mstinventory_insertが失敗しました１');
-    }
+    onClose();
   })
-  .then(() => onClose())
   .catch(error => {
     console.error(error);
   })

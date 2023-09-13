@@ -3,7 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 
 import MstInventoryDialog from '../dialogs/MstInventoryDialog.js';
 
-const MstInventoryEdit = ({ rowId }) => {
+const MstInventoryEdit = ({ rowId, setReload }) => {
   const [open, setOpen] = useState(false); // 確認ダイアログの表示/非表示
 
   const handleOpen = () => {
@@ -12,6 +12,7 @@ const MstInventoryEdit = ({ rowId }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setReload(new Date());
   };
 
   return (
