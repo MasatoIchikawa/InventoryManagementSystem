@@ -1,9 +1,10 @@
 
 import { React, useState } from "react";
 import { Button, Dialog, DialogTitle } from "@mui/material";
+import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import ja from "date-fns/locale/ja";
 
 import "./CommonDialog.css";
@@ -80,18 +81,44 @@ function CommonDialog ({ title, isOpen, onSave, onClose, items }){
             return (
             <label key={props.name}>
                 <span className="dialog-label">{props.name}</span>
-                <input type="text" className="dialog-textbox" value={props.value ?? ''} onChange={(e) => props.onChange(e.target.value)}/>
+                <TextField
+                    className="dialog-textbox"
+                    type="text"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                    value={props.value ?? ''}
+                    onChange={(e) => props.onchange(e.target.value)
+                    }
+                />
             </label>
             );
+        case "number":
+              return (
+                <label key={props.name}>
+                  <span className="dialog-label">{props.name}</span>
+                  <TextField
+                    className="dialog-numberbox"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                    value={props.value ?? ''}
+                    onChange={(e) => props.onchange(e.target.value)
+                    }
+                  />
+                </label>
+              );
         case "select":
             return(
             <label key={props.name}>
                 <span className="dialog-label">{props.name}</span>
                 <label className="dialog-selectbox">
-                  <select value={props.value ?? 0} onChange={(e) => props.onChange(e.target.value)}>
-                    <option value="0"></option>
-                    <option value="1">カテゴリA</option>
-                    <option value="2">カテゴリB</option>
+                  <select value={props.value ?? 0} onChange={(e) => props.onchange(e.target.value)}>
+                  <option value="0"></option>
+                    {props.selecter.map((a) => <option value={a.id} key={a.id}>{a.name}</option>)}
                   </select>
                 </label>
             </label>
@@ -102,11 +129,11 @@ function CommonDialog ({ title, isOpen, onSave, onClose, items }){
                     <span className="dialog-label">{props.name}</span>
                     <div className="dialog-radio">
                         <span>
-                            <input id="dialog-displayflag-on" type="radio" checked={props.value === 1} onChange={() => props.onChange(1)}/>
+                            <input id="dialog-displayflag-on" type="radio" checked={props.value === 1} onChange={() => props.onchange(1)}/>
                             <label htmlFor="dialog-displayflag-on">表示する</label>
                         </span>
                         <span>
-                             <input id="dialog-displayflag-off" type="radio" checked={props.value !== 1} onChange={() => props.onChange(0)}/>
+                             <input id="dialog-displayflag-off" type="radio" checked={props.value !== 1} onChange={() => props.onchange(0)}/>
                             <label htmlFor="dialog-displayflag-off">表示しない</label>
                          </span>
                     </div>
@@ -115,13 +142,14 @@ function CommonDialog ({ title, isOpen, onSave, onClose, items }){
         case "date":
             return (
                 <div key={props.name}>
-    <LocalizationProvider
-        adapterLocale={ja}
-        dateAdapter={AdapterDateFns}
-        dateFormats={{ monthAndYear: "yyyy年 MM月" }}
-    >
-      <DatePicker />
-    </LocalizationProvider>
+                  <span className="dialog-label">{props.name}</span>
+                  <LocalizationProvider
+                    adapterLocale={ja}
+                    dateAdapter={AdapterDateFns}
+                    dateFormats={{ monthAndYear: "yyyy年 MM月 " }}
+                  >
+                    <DateTimePicker value={props.value ?? null} onchange={props.onChange}/>
+                  </LocalizationProvider>
                 </div>
             );
         case "file":
@@ -129,7 +157,7 @@ function CommonDialog ({ title, isOpen, onSave, onClose, items }){
                 <div key={props.name}>
                     <span className="dialog-label">{props.name}</span>
                     <div className="dialog-filelabel">
-                        <input type="file" accept='image/*' className="dialog-file" id="dialog-file" value={props.value ?? ''} onChange={props.onChange}/>
+                        <input type="file" accept='image/*' className="dialog-file" id="dialog-file" value={props.value ?? ''} onchange={props.onChange}/>
                         <img id="dialog-preview" src="" width="100" height="100"/>
                     </div>
                 </div>

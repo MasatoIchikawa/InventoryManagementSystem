@@ -28,6 +28,10 @@
     border-bottom-color: #e20000;
 }
 
+.dialog-numberbox{
+    width: 30%;
+}
+
 .dialog-selectbox {
     display: inline-flex;
     align-items: center;

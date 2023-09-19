@@ -33,7 +33,25 @@ function save (onClose, flag, datetime, inventory_id, inventory, note){
 }
 
 function ButtonInput(){
+    const [reload, setReload] = useState(new Date());
     const [open, setOpen] = useState(false);
+    const [json, setJson] = useState();
+
+    const inventory_list = [];
+    fetch('/mstinventory/display')
+    .then((res) => res.text()).then((data) => {
+      setJson(data);
+    });
+    if(json !== undefined){
+      const jsonparse = JSON.parse(json);
+      for(let i = 0; i < jsonparse.length; i++){
+        const item = jsonparse[i];
+        inventory_list.push({
+          id: item.inventory_id,
+          name: item.inventory_name,
+        });
+      }
+    }
 
     const handleClickOpenSimple = () => {
       setOpen(true);
@@ -41,7 +59,7 @@ function ButtonInput(){
   
     const handleClose = () => {
       setOpen(false);
-    //   window.location.reload();
+      setReload(new Date());
     };
 
     const item = {
@@ -50,54 +68,48 @@ function ButtonInput(){
     };
 
     const [id, setID] = useState(0);
-    const [name, setName] = useState("");
-    const [kana, setKana] = useState("");
-    // const [picture, setPicture] = useState(null);
-    // const [category, setCategory] = useState(0);
-    // const [jancode, setJancode] = useState("");
-    // const [skucode, setSkucode] = useState("");
-    // const [unit, setUnit] = useState(0);
-    // const [price, setPrice] = useState(null);
-    // const [pricecost, setPricecost] = useState(null);
-    // const [max, setMax] = useState(null);
-    // const [min, setMin] = useState(null);
-    // const [location, setLocation] = useState("");
-    // const [url, setUrl] = useState("");
-    // const [note, setNote] = useState("");
-    // const [display, setDisplay] = useState(1);
+    const [date, setDate] = useState(null);
+    const [inventory, setInventory] = useState(0);
+    const [number, setNumber] = useState(0);
+    const [note, setNote] = useState("");
   
     const items = [
         {
             type: "date",
             name: "入出庫日時",
-            value: name,
-            onchange: setName
+            value: date,
+            onchange: setDate
         },
         {
             type: "select",
             name: "在庫マスタ",
-            value: kana,
-            onchange: setKana
+            value: inventory,
+            onchange: setInventory,
+            selecter: inventory_list
         },
         {
-            type: "text",
+            type: "number",
             name: "数量",
-            value: kana,
-            onchange: setKana
+            value: number,
+            onchange: setNumber,
         },
         {
             type: "text",
             name: "説明",
-            value: kana,
-            onchange: setKana
+            value: note,
+            onchange: setNote
         }
         ]
     return (
         <>
             <CustomButton props={item} key={item.name}/>
-            <CommonDialog title="入庫登録" isOpen={open} onSave={save} onClose={handleClose} items={items}/>
-
-            {/* <MstInventoryDialog rowid={0} isOpen={open} onClose={handleClose} /> */}
+            <CommonDialog 
+              title="入庫登録"
+              isOpen={open}
+              onSave={() => save(handleClose, 1, date, inventory, number, note)}
+              onClose={handleClose}
+              items={items}
+            />
         </>
     );
 }
