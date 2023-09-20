@@ -11,6 +11,11 @@ import App from './App';
 
 //npm install redux react-redux @reduxjs/toolkit
 //npm install react-router-dom
+//npm install date-fns
+//npm install date-fns/locale 
+//npm install dayjs   
+//npm install @date-io/date-fns
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
