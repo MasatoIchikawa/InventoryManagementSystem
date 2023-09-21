@@ -5,6 +5,7 @@ import CommonDialog from "../../../components/commondialogs/CommonDialog.js";
 
 function save (onClose, flag, datetime, inventory_id, inventory, note){
     const json = {
+      inout_id: 0,
       inout_flag: flag,
       inout_datetime: datetime,
       inventory_id: inventory_id,
@@ -32,8 +33,8 @@ function save (onClose, flag, datetime, inventory_id, inventory, note){
     })
 }
 
-function ButtonInput(){
-    const [reload, setReload] = useState(new Date());
+function ButtonInput({ setReload }){
+
     const [open, setOpen] = useState(false);
     const [json, setJson] = useState();
 
@@ -76,26 +77,34 @@ function ButtonInput(){
     const items = [
         {
             type: "date",
+            key: "date",
             name: "入出庫日時",
+            Required: true,
             value: date,
             onchange: setDate
         },
         {
             type: "select",
+            key: "inventory",
             name: "在庫マスタ",
+            Required: false,
             value: inventory,
             onchange: setInventory,
             selecter: inventory_list
         },
         {
             type: "number",
+            key: "number",
             name: "数量",
+            Required: false,
             value: number,
             onchange: setNumber,
         },
         {
             type: "text",
+            key: "note",
             name: "説明",
+            Required: false,
             value: note,
             onchange: setNote
         }

@@ -2,10 +2,10 @@ import ButtonInput from "../buttoninputs/ButtonInput.js";
 import ButtonOutput from "../buttonoutputs/ButtonOutput.js";
 import "./InOutButton.css";
 
-function InOutButton(){
+function InOutButton({ setReload }){
     return (
         <section className="buttonsection">
-            <ButtonInput />
+            <ButtonInput setReload={setReload}/>
             <ButtonOutput />
         </section>
     );

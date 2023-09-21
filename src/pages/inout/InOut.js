@@ -4,6 +4,7 @@ import CommonGrid from "../../components/commongrids/CommonGrid.js";
 import InOutButton from "./buttons/InOutButtn.js";
 
 function InOut(){
+    const [reload, setReload] = useState(new Date());
     const [json, setJson] = useState();
 
     const rows = [];
@@ -70,7 +71,7 @@ function InOut(){
 
     return (
         <>
-            <InOutButton />
+            <InOutButton setReload={setReload}/>
             <CommonGrid rows={rows} cols={cols} />
         </>
     );
