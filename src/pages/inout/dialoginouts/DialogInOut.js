@@ -32,12 +32,12 @@ function save (onClose, id, flag, datetime, inventory_id, inventory, note){
     })
 }
 
-function DialogInput({ open, setOpen, setReload, rowId }){
+function DialogInOut({ open, setOpen, setReload, inoutflag, rowId }){
     const [json, setJson] = useState();
 
     const [id, setID] = useState(0);
     const [date, setDate] = useState(null);
-    const [flag, SetFlag] = useState(0);
+    const [flag, setFlag] = useState(inoutflag);
     const [inventory, setInventory] = useState(0);
     const [number, setNumber] = useState(0);
     const [note, setNote] = useState("");
@@ -69,7 +69,7 @@ function DialogInput({ open, setOpen, setReload, rowId }){
             for(let i = 0; i < row2.length; i++){
               const item = row2[i];
               setID(item.inout_id);
-              SetFlag(item.inout_flag);
+              setFlag(item.inout_flag);
               setDate(item.inout_datetime);
               setInventory(item.inventory_id);
               setNumber(item.inventory);
@@ -118,13 +118,14 @@ function DialogInput({ open, setOpen, setReload, rowId }){
             onchange: setNote
         }
         ]
+    const title = flag === 1 ? "入庫" : flag === 2 ? "出庫" : "";
 
     return (
         <>
             <CommonDialog 
-              title="入庫登録"
+              title={title + "登録 " + (rowId > 0 ? "-編集-" : "-新規追加-")}
               isOpen={open}
-              onSave={() => save(handleClose, id, 1, date, inventory, number, note)}
+              onSave={() => save(handleClose, id, flag, date, inventory, number, note)}
               onClose={handleClose}
               items={items}
             />
@@ -132,4 +133,4 @@ function DialogInput({ open, setOpen, setReload, rowId }){
     );
 }
 
-export default DialogInput;
+export default DialogInOut;

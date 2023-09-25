@@ -43,7 +43,6 @@ function formatDate (date, format) {
 
 function InOut(){
     const [reload, setReload] = useState(new Date());
-    const [open, setOpen] = useState(false);
     const [json, setJson] = useState();
 
     const rows = [];
@@ -52,11 +51,9 @@ function InOut(){
         setJson(data);
       });
       if(json !== undefined){
-        const row2 = JSON.parse(json);
-        for(let i = 0; i < row2.length; i++){
-          const item = row2[i];
-
-
+        const r = JSON.parse(json);
+        for(let i = 0; i < r.length; i++){
+          const item = r[i];
           rows.push({
             id: item.inout_id,
             flag: item.inout_flag === 1 ? "入庫" : item.inout_flag === 2 ? "出庫" : "",
@@ -104,17 +101,18 @@ function InOut(){
             align: "center"
         },
         {
+          field: 'inventoryname',
+          headerName: '在庫名'
+        },
+        {
             field: 'inventory',
             headerName: '数量'
         },
         {
             field: 'note',
             headerName: 'コメント'
-        },
-        {
-            field: 'inventoryname',
-            headerName: '在庫名'
-        }]
+        }
+      ]
 
     return (
         <>

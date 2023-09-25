@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import CustomButton from "../../../components/buttonlist/button/CustomButton.js";
-import DialogInput from "../dialoginputs/DialogInput.js";
+import DialogInOut from "../dialoginouts/DialogInOut.js";
 
 function ButtonInput({ setReload }){
     const [open, setOpen] = useState(false);
@@ -18,7 +18,7 @@ function ButtonInput({ setReload }){
     return (
         <>
             <CustomButton props={item} key={item.name}/>
-            <DialogInput open={open} setOpen={setOpen} setReload={setReload} />
+            <DialogInOut open={open} setOpen={setOpen} setReload={setReload} inoutflag={1} />
         </>
     );
 }

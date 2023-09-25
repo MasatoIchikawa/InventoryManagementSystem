@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from "@mui/material";
 
-import DialogInput from '../dialoginputs/DialogInput.js';
+import DialogInput from '../dialoginouts/DialogInOut.js';
 
 const ButtonInputEdit = ({ rowId, setReload }) => {
   const [open, setOpen] = useState(false); // 確認ダイアログの表示/非表示
@@ -16,7 +16,7 @@ const ButtonInputEdit = ({ rowId, setReload }) => {
         編集
       </Button>
 
-      <DialogInput open={open} setOpen={setOpen} setReload={setReload} rowId={rowId}  />
+      <DialogInput open={open} setOpen={setOpen} setReload={setReload} inoutflag={1} rowId={rowId}  />
     </div>
   );
 };

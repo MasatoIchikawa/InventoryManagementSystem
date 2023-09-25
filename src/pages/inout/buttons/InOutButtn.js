@@ -6,7 +6,7 @@ function InOutButton({ setReload }){
     return (
         <section className="buttonsection">
             <ButtonInput setReload={setReload}/>
-            <ButtonOutput />
+            <ButtonOutput setReload={setReload} />
         </section>
     );
 }
