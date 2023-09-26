@@ -1,4 +1,6 @@
 .side{
+    display: flex;
+    flex-direction: column;
     box-sizing: border-box;
     position: fixed;
     color: #C0C0C0;
@@ -9,8 +11,14 @@
     height: 100%;
     z-index: 1;
     overflow: auto;
+
 }
 
-.structure{
+.structure,
+.structureunder{
     padding: 0;
+}
+.structureunder{
+    margin-top: auto;
+    margin-bottom: 16px;
 }

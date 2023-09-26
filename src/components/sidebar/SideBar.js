@@ -1,25 +1,18 @@
 import SidebarIcon from "./sidebaricon/SideBarIcon.js";
-import "./SideBar.css";
-
-import { useSelector, useDispatch } from "react-redux";
-import { stocklist, inout, master_inventory, master_category } from "../../libs/redux/FormSlice.js";
-
 import svg_stocklist from "./icon/stocklist.svg";
 import svg_stockrecord from "./icon/stockrecord.svg";
 import svg_inventory from "./icon/inventory.svg";
 import svg_analysis from "./icon/analysis.svg";
 import svg_master from "./icon/master.svg";
+import svg_logout from "./icon/logout.svg";
+import "./SideBar.css";
 
 function SideBar() {
-    // const dispatch = useDispatch();
-    // const click = () => dispatch(stocklist());
-
-
     const icons = [
         {
             name : "在庫管理表",
             icon: svg_stocklist,
-            linkto: "/",
+            linkto: "/List",
         },
         {
             name : "入出庫記録",
@@ -38,10 +31,19 @@ function SideBar() {
         },
     ];
 
+    const undericon = {
+        name : "ログアウト",
+        icon: svg_logout,
+        linkto: "/",
+    };
+
     return (
         <aside className="side">
             <ul className="structure">
                 {icons.map((item) => <SidebarIcon item={item} key={item.name}/>)}
+            </ul>
+            <ul className="structureunder">
+                <SidebarIcon item={undericon} key={undericon.name}/>
             </ul>
         </aside>
     );
