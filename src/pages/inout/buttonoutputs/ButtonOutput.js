@@ -1,17 +1,13 @@
 import { useState } from "react";
 
 import CustomButton from "../../../components/buttonlist/button/CustomButton.js";
+import DialogInOut from "../dialoginouts/DialogInOut.js";
 
-function ButtonOutput(){
+function ButtonOutput({ setReload }){
     const [open, setOpen] = useState(false);
 
     const handleClickOpenSimple = () => {
       setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-      window.location.reload();
     };
 
     const item = {
@@ -21,8 +17,7 @@ function ButtonOutput(){
     return (
         <>
             <CustomButton props={item} key={item.name}/>
-
-            {/* <MstInventoryDialog rowid={0} isOpen={open} onClose={handleClose} /> */}
+            <DialogInOut open={open} setOpen={setOpen} setReload={setReload} inoutflag={2} />
         </>
     );
 }

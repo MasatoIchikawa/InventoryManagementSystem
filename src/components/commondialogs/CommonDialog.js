@@ -9,72 +9,7 @@ import ja from "date-fns/locale/ja";
 
 import "./CommonDialog.css";
 
-// function post (onClose, id, name, kana, pic, category, jan, sku, unit, pri, pricost, max, min, lo, u, n, display){
-//   const json = {
-//     inventory_id: id,
-//     inventory_name: name,
-//     inventory_kana: kana,
-//     picture: pic,
-//     category_id: category,
-//     jancode: jan,
-//     skucode: sku,
-//     unit_id: unit,
-//     price: pri,
-//     price_cost: pricost,
-//     inventory_max: max,
-//     inventory_min: min,
-//     location: lo,
-//     url: u,
-//     note: n,
-//     display_flag: display,
-//     insert_user_id: 0
-//   };
-
-//   fetch('/mstinventory_insert', {
-//     method: 'POST',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(json)
-//   })
-//   .then(response => {
-//     if(response.status !== 200){
-//       console.warm('mstinventory_insertが失敗しました');
-//     }
-//     onClose();
-//   })
-//   .catch(error => {
-//     console.error(error);
-//   })
-// }
-
 function CommonDialog ({ title, isOpen, onSave, onClose, items }){
-//   const handleClose = () => {
-//     setID(0);
-//     onClose();
-//   };
-
-//   const handleOptionChange = (display) => {
-//     setDisplay(display);
-//   };
-
-//   const previewImage = (obj) => {
-//     var fileReader = new FileReader();
-//     fileReader.onload = (function() {
-//       document.querySelector('#dialog-preview').src = fileReader.result;
-//       setPicture(fileReader.result);
-//     });
-  
-//     if(obj === null || obj.target.files[0] === undefined) {
-//       document.querySelector('#dialog-preview').src = '';
-//       setPicture('');
-//       return;
-//     }
-  
-//     fileReader.readAsDataURL(obj.target.files[0]);
-//   }
-
   const setItem = (props) => {
     switch(props.type){
         case "text":
@@ -148,7 +83,10 @@ function CommonDialog ({ title, isOpen, onSave, onClose, items }){
                     dateAdapter={AdapterDateFns}
                     dateFormats={{ monthAndYear: "yyyy年 MM月 " }}
                   >
-                    <DateTimePicker value={props.value ?? null} onchange={props.onChange}/>
+                    <DateTimePicker value={props.value === null ? null : new Date(props.value)} onChange={(date) => {
+
+                      props.onchange(date.toLocaleString('ja-JP'))
+                    }}/>
                   </LocalizationProvider>
                 </div>
             );
@@ -157,13 +95,38 @@ function CommonDialog ({ title, isOpen, onSave, onClose, items }){
                 <div key={props.name}>
                     <span className="dialog-label">{props.name}</span>
                     <div className="dialog-filelabel">
-                        <input type="file" accept='image/*' className="dialog-file" id="dialog-file" value={props.value ?? ''} onchange={props.onChange}/>
+                        <input
+                          type="file" accept='image/*' className="dialog-file" id="dialog-file" value={props.value ?? ''} onChange={props.onchange}/>
                         <img id="dialog-preview" src="" width="100" height="100"/>
                     </div>
                 </div>
             );
     }
   }
+
+
+
+  const savecheck = () => {
+    let errors = [];
+    items.forEach(props => {
+      if(!props.Required) return;
+      switch(props.type){
+        case "date":
+          console.log(props);
+          if(props.value === null){
+            errors.push(props.name + ' is null');
+            return;
+          }
+      }
+    });
+    if(errors.length > 0){
+      console.log(errors.map((e) => e + '\n'));
+      return;
+    }
+    console.log('onsave');
+    onSave();
+  }
+
 
   return (
     <>
@@ -172,7 +135,7 @@ function CommonDialog ({ title, isOpen, onSave, onClose, items }){
         <div className="editdialog">
             {items.map((a) => setItem(a))}
         </div>
-        <Button onClick={onSave}>登録</Button>
+        <Button onClick={savecheck}>登録</Button>
         <Button onClick={onClose}>閉じる</Button>
       </Dialog>
     </>
