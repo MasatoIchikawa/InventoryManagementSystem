@@ -11,7 +11,6 @@ function StockList({ item }){
                 <p className="sideicontext">{item.name}</p>
             </Link>
         </div>
-
     );
 }
 
