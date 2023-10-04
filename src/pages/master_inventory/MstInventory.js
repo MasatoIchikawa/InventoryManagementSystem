@@ -5,8 +5,9 @@ import MstInventoryDelete from './deletes/MstInventoryDelete.js';
 import MstInventoryEdit from './edits/MstInventoryEdit.js';
 import MstInventoryPicture from './imgs/MstInventoryPicture.js';
 import CommonGrid from '../../components/commongrids/CommonGrid.js';
-import "./MstInventory.css";
-
+import SideBar from '../../components/sidebar/SideBar.js';
+import Header from '../../components/header/Header.js';
+import "../../utils/Contents.css";
 
 function MstInventory(){
   const [reload, setReload] = useState(new Date());
@@ -128,10 +129,14 @@ function MstInventory(){
       }];
 
     return (
-        <>
-          <MstInventoryButton setReload={setReload} />
-          <CommonGrid rows={rows} cols={cols} />
-        </>
+        <div className="contents">
+          <SideBar />
+          <Header />
+          <section>
+            <MstInventoryButton setReload={setReload} />
+            <CommonGrid rows={rows} cols={cols} />
+          </section>
+        </div>
     );
 }
 

@@ -3,7 +3,9 @@ import { useState } from "react";
 import InOutButton from "../inout/buttons/InOutButtn.js";
 import GridSearch from "../../components/gridsearch/GridSearch.js";
 import CommonGrid from "../../components/commongrids/CommonGrid.js";
-import "./InventoryList.css";
+import SideBar from "../../components/sidebar/SideBar.js";
+import Header from "../../components/header/Header.js";
+import "../../utils/Contents.css";
 
 function InventoryList(){
     const [reload, setReload] = useState(new Date());
@@ -93,11 +95,15 @@ function InventoryList(){
       ]
 
     return (
-        <section>
-            <InOutButton setReload={setReload}/>
-            <GridSearch />
-            <CommonGrid rows={rows} cols={cols} />
-        </section>
+        <div className="contents">
+            <SideBar />
+            <Header />
+            <section>
+              <InOutButton setReload={setReload}/>
+              <GridSearch />
+              <CommonGrid rows={rows} cols={cols} />
+            </section>
+        </div>
     );
 }
 

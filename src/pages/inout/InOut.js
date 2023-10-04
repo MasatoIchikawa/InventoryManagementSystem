@@ -4,6 +4,9 @@ import CommonGrid from "../../components/commongrids/CommonGrid.js";
 import InOutButton from "./buttons/InOutButtn.js";
 import CommonDelete from '../../components/commondeletes/CommonDelete.js';
 import ButtonInputEdit from './buttonimputedits/ButtonInputEdit.js';
+import SideBar from '../../components/sidebar/SideBar.js';
+import Header from '../../components/header/Header.js';
+import "../../utils/Contents.css";
 
 function deletepost (id){
   const json = {
@@ -115,10 +118,14 @@ function InOut(){
       ]
 
     return (
-        <>
+        <div className="contents">
+          <SideBar />
+          <Header />
+          <section>
             <InOutButton setReload={setReload}/>
             <CommonGrid rows={rows} cols={cols} />
-        </>
+          </section>
+        </div>
     );
 }
 
