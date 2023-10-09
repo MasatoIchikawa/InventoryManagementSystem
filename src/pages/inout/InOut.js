@@ -120,7 +120,7 @@ function InOut(){
     return (
         <div className="contents">
           <SideBar />
-          <Header />
+          <Header title={"入出庫記録"}/>
           <section>
             <InOutButton setReload={setReload}/>
             <CommonGrid rows={rows} cols={cols} />

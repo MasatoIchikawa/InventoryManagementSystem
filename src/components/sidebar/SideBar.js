@@ -29,6 +29,12 @@ function SideBar() {
             icon: svg_master,
             linkto: "/MstCategory",
         },
+        {
+            name: "ユーザーマスタ",
+            icon: svg_master,
+            linkto: "/MasterAccount",
+
+        },
     ];
 
     const undericon = {

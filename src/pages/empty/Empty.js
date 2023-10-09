@@ -6,7 +6,7 @@ function Empty(){
     return (
         <div className="contents">
             <SideBar />
-            <Header />
+            <Header title={"在庫管理システム"}/>
             <p>ページが存在しません。</p>
         </div>
     );

@@ -131,7 +131,7 @@ function MstInventory(){
     return (
         <div className="contents">
           <SideBar />
-          <Header />
+          <Header title={"在庫マスタ"}/>
           <section>
             <MstInventoryButton setReload={setReload} />
             <CommonGrid rows={rows} cols={cols} />

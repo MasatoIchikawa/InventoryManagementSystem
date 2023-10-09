@@ -1,9 +1,9 @@
 import "./Header.css";
 
-function Header(){
+function Header({title}){
     return (
         <section className="header">
-            <h1>在庫管理システム</h1>
+            <h1>{title}</h1>
         </section>
     );
 }

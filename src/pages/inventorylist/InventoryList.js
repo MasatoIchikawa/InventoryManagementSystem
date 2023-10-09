@@ -97,7 +97,7 @@ function InventoryList(){
     return (
         <div className="contents">
             <SideBar />
-            <Header />
+            <Header title={"在庫管理表"}/>
             <section>
               <InOutButton setReload={setReload}/>
               <GridSearch />

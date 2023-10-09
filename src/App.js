@@ -5,6 +5,7 @@ import MstInventory from "./pages/master_inventory/MstInventory.js";
 import Empty from "./pages/empty/Empty.js";
 import InOut from './pages/inout/InOut.js';
 import Login from './pages/logins/Login.js';
+import MasterAccount from './pages/master_account/MasterAccount.js';
 
 function App(){
     return (
@@ -15,6 +16,7 @@ function App(){
                   <Route path="/Inout" element={<InOut />} />
                   <Route path="/MstInventory" element={<MstInventory />} />
                   <Route path="/MstCategory" element={<Empty />} />
+                  <Route path="/MasterAccount" element={<MasterAccount />} />
                   <Route path="*" element={<Empty />} />
               </Routes>
         </main>

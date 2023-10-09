@@ -41,6 +41,7 @@ function DialogInOut({ open, setOpen, setReload, inoutflag, rowId }){
     const [inventory, setInventory] = useState(0);
     const [number, setNumber] = useState(0);
     const [note, setNote] = useState("");
+    if(!open) return;
 
     const inventory_list = [];
     fetch('/mstinventory/display')

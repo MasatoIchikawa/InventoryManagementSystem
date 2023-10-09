@@ -1,19 +1,14 @@
 import { useState } from "react";
 
 import CustomButton from "../../../components/buttonlist/button/CustomButton.js";
-import MstInventoryDialog from "../dialogs/MstInventoryDialog.js";
+import DialogMasterAccount from "../dialogs/DialogMasterAccount.js";
 import "../../../utils/ButtonList.css";
 
-function MstInventoryButton({ setReload }){
+function ButtonMasterAccount({ setReload }){
     const [open, setOpen] = useState(false);
 
     const handleClickOpenSimple = () => {
       setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-      setReload(new Date());
     };
 
     const buttons = [{
@@ -24,9 +19,9 @@ function MstInventoryButton({ setReload }){
         <section className="buttonsection">
             {buttons.map((item) => <CustomButton props={item} key={item.name}/>)}
 
-            <MstInventoryDialog rowid={0} isOpen={open} onClose={handleClose} />
+            <DialogMasterAccount rowid={0} open={open} setOpen={setOpen} setReload={setReload} />
         </section>
     );
 }
 
-export default MstInventoryButton;
+export default ButtonMasterAccount;

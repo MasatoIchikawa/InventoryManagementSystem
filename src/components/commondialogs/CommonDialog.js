@@ -63,14 +63,20 @@ function CommonDialog ({ title, isOpen, onSave, onClose, items }){
                 <div key={props.name}>
                     <span className="dialog-label">{props.name}</span>
                     <div className="dialog-radio">
-                        <span>
+                      {props.selecter.map((a) => (
+                        <span key={"dialog-radio-" + a.id}>
+                            <input id={"dialog-radio-" + a.id} type="radio" checked={a.id === props.value} name={props.name} onChange={() => props.onchange(a.id)}/>
+                            <label htmlFor={"dialog-radio-" + a.id}>{a.name}</label>
+                        </span>
+                      ))}
+                        {/* <span>
                             <input id="dialog-displayflag-on" type="radio" checked={props.value === 1} onChange={() => props.onchange(1)}/>
                             <label htmlFor="dialog-displayflag-on">表示する</label>
                         </span>
                         <span>
                              <input id="dialog-displayflag-off" type="radio" checked={props.value !== 1} onChange={() => props.onchange(0)}/>
                             <label htmlFor="dialog-displayflag-off">表示しない</label>
-                         </span>
+                         </span> */}
                     </div>
               </div>
             );
