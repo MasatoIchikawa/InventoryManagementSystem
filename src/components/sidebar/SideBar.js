@@ -25,11 +25,6 @@ function SideBar() {
             linkto: "/MstInventory",
         },
         {
-            name: "カテゴリーマスタ",
-            icon: svg_master,
-            linkto: "/MstCategory",
-        },
-        {
             name: "ユーザーマスタ",
             icon: svg_master,
             linkto: "/MasterAccount",

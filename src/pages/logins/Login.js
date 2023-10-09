@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useLayoutEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login_id, login_password } from "../../libs/redux/AccountSlice.js";
@@ -21,6 +21,12 @@ function Login(){
   const dispatch = useDispatch();
   const idSlice = (value) => dispatch(login_id(value));
   const passwordSlice = (value) => dispatch(login_password(value));
+
+  //ログイン時にユーザーIDとパスワードを初期化する
+  useLayoutEffect(() => {
+    idSlice("");
+    passwordSlice("");
+  }, []);
 
   const setHalfOnly = (value, set) => {
     if(!value.match(/^[A-Za-z0-9]*$/)){
@@ -61,7 +67,7 @@ function Login(){
   }
     return (
       <div className="contentslogin">
-        <Header title={"在庫管理システム"}/>
+        <Header title={"在庫管理システム"} />
         <div className="loging-page">
           <div className="loginform-box">
             <input type="text" placeholder="ユーザーID" value={id} onChange={(e) => setHalfOnly(e.target.value, setID)} onKeyDown={(e) => idPressEnter(e)}/>

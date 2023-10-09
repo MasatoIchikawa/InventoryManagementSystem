@@ -50,7 +50,7 @@ function MasterAccount(){
             id: item.user_id,
             name: item.user_name,
             login: item.login_id,
-            authority: item.authority_level,
+            authority: item.authority_level === 1 ? "一般" : item.authority_level === 2 ? "管理者" : "",
           });
         }
       }

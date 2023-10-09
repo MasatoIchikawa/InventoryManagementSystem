@@ -25,8 +25,8 @@ function CommonGrid({ rows, cols }){
                   userSelect:'none',
                 },
                 '.MuiDataGrid-columnHeaders' : {
-                  backgroundColor: '#65b2c6', 
-                  color: '#fff',
+                  backgroundColor: '#FFC045', 
+                  color: '#000',
                 }
               }}>
             <DataGrid className='mstinventorygrid'

@@ -15,7 +15,6 @@ function App(){
                   <Route path="/List" element={<InventoryList />} />
                   <Route path="/Inout" element={<InOut />} />
                   <Route path="/MstInventory" element={<MstInventory />} />
-                  <Route path="/MstCategory" element={<Empty />} />
                   <Route path="/MasterAccount" element={<MasterAccount />} />
                   <Route path="*" element={<Empty />} />
               </Routes>
