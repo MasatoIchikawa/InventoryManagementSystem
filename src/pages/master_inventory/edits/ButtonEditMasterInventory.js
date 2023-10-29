@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from "@mui/material";
 
-import DialogMasterAccount from '../dialogs/DialogMasterAccount';
+import DialogMasterInventory from '../dialogs/DialogMasterInventory';
 
-const ButtonEditMasterAccount = ({ rowId, setReload }) => {
+const ButtonEditMasterInventory = ({ rowid, setReload }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -16,9 +16,9 @@ const ButtonEditMasterAccount = ({ rowId, setReload }) => {
         編集
       </Button>
 
-      <DialogMasterAccount open={open} setOpen={setOpen} setReload={setReload} rowId={rowId}  />
+      <DialogMasterInventory rowid={rowid} open={open} setOpen={setOpen} setReload={setReload} />
     </div>
   );
 };
 
-export default ButtonEditMasterAccount;
+export default ButtonEditMasterInventory;

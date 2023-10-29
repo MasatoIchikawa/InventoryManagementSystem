@@ -1,13 +1,38 @@
 import { React, useState } from 'react';
 
-import MstInventoryButton from "./buttons/MstInventoryButton.js";
-import MstInventoryDelete from './deletes/MstInventoryDelete.js';
-import MstInventoryEdit from './edits/MstInventoryEdit.js';
-import MstInventoryPicture from './imgs/MstInventoryPicture.js';
-import CommonGrid from '../../components/commongrids/CommonGrid.js';
 import SideBar from '../../components/sidebar/SideBar.js';
 import Header from '../../components/header/Header.js';
+import CommonGrid from '../../components/commongrids/CommonGrid.js';
+import CommonDelete from '../../components/commondeletes/CommonDelete.js';
+import MstInventoryPicture from './imgs/MstInventoryPicture.js';
+import ButtonMasterInventory from './buttons/ButtonMasterInventory.js';
+import ButtonEditMasterInventory from './edits/ButtonEditMasterInventory.js';
 import "../../utils/Contents.css";
+
+function deletepost (id){
+  const json = {
+    inventory_id: id,
+  };
+
+  fetch('/mstinventory_delete', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(json)
+  })
+  .then(response => {
+    if (response.status === 200) {
+      return response.json()
+    } else {
+      console.warn('Something went wrong on api server!');
+    }
+  })
+  .catch(error => {
+    console.error(error);
+  })
+}
 
 function MstInventory(){
   const [reload, setReload] = useState(new Date());
@@ -50,7 +75,7 @@ function MstInventory(){
         sortable: false,
         width: 90,
         disableClickEventBubbling: true,
-        renderCell: (params) => <MstInventoryDelete rowId={params.id} setReload={setReload} />
+        renderCell: (params) => <CommonDelete rowId={params.id} setReload={setReload} deletepost={() => deletepost(params.id)} />
       },
       {
         field: 'editBtn',
@@ -58,7 +83,7 @@ function MstInventory(){
         sortable: false,
         width: 90,
         disableClickEventBubbling: true,
-        renderCell: (params) => <MstInventoryEdit rowId={params.id} setReload={setReload} />
+        renderCell: (params) => <ButtonEditMasterInventory rowid={params.id} setReload={setReload} />
       },
       {
         field: 'id',
@@ -133,7 +158,7 @@ function MstInventory(){
           <SideBar />
           <Header title={"在庫マスタ"}/>
           <section>
-            <MstInventoryButton setReload={setReload} />
+            <ButtonMasterInventory setReload={setReload} />
             <CommonGrid rows={rows} cols={cols} />
           </section>
         </div>

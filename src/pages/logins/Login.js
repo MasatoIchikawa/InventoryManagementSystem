@@ -1,7 +1,5 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login_id, login_password } from "../../libs/redux/AccountSlice.js";
 
 import Header from "../../components/header/Header";
 import "../../utils/Contents.css";
@@ -15,12 +13,6 @@ function Login(){
   const [error, setError] = useState(false);
 
   const refPassword = useRef();
-
-  const idStore = useSelector((state) => state.account.login_id);
-  const passwordStore = useSelector((state) => state.account.login_password);
-  const dispatch = useDispatch();
-  const idSlice = (value) => dispatch(login_id(value));
-  const passwordSlice = (value) => dispatch(login_password(value));
 
   const setHalfOnly = (value, set) => {
     if(!value.match(/^[A-Za-z0-9]*$/)){
@@ -50,12 +42,15 @@ function Login(){
     const result = JSON.parse(json);
     if(result.length === 1){
       setError(false);
-      idSlice(result[0].login_id);
-      passwordSlice(result[0].login_password);
+      localStorage.setItem('login_id', result[0].login_id);
+      localStorage.setItem('login_password', result[0].login_password);
+
       navigate("/List");
     }
     else{
       setError(true);
+      localStorage.setItem('login_id', '');
+      localStorage.setItem('login_password', '');
     }
   });
   }

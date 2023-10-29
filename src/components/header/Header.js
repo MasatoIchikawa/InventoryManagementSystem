@@ -1,24 +1,19 @@
 import { useState, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login_id, login_password } from "../../libs/redux/AccountSlice.js";
 
 import "./Header.css";
 
 function Header({title, id, password}){
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const idSlice = (value) => dispatch(login_id(value));
-    const passwordSlice = (value) => dispatch(login_password(value));
-    const idStore = useSelector((state) => state.account.login_id);
-    const passwordStore = useSelector((state) => state.account.login_password);
     const [name, setName] = useState("");
 
+    const login_id = localStorage.getItem("login_id");
+    const login_password = localStorage.getItem("login_password");
+    
     useLayoutEffect(() => {
-
       const params = {
-          "login_id": id !== undefined ? id : idStore,
-          "login_password": password !== undefined ? password : passwordStore
+          "login_id": id !== undefined ? id : login_id,
+          "login_password": password !== undefined ? password : login_password
         };
         const query = new URLSearchParams(params);
         fetch('/login?' + query)
@@ -32,8 +27,8 @@ function Header({title, id, password}){
           navigate("/");
         }
 
-        idSlice(params.login_id);
-        passwordSlice(params.login_password);
+        localStorage.setItem("login_id", params.login_id);
+        localStorage.setItem("login_password", params.login_password);
       });
     }, []);
 

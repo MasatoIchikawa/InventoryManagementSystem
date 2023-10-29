@@ -12,7 +12,7 @@ const ButtonInputEdit = ({ rowId, setReload }) => {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
+      <Button variant="contained" color="inherit" onClick={handleOpen}>
         編集
       </Button>
 
