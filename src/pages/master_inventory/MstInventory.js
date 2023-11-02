@@ -4,7 +4,6 @@ import SideBar from '../../components/sidebar/SideBar.js';
 import Header from '../../components/header/Header.js';
 import CommonGrid from '../../components/commongrids/CommonGrid.js';
 import CommonDelete from '../../components/commondeletes/CommonDelete.js';
-import MstInventoryPicture from './imgs/MstInventoryPicture.js';
 import ButtonMasterInventory from './buttons/ButtonMasterInventory.js';
 import ButtonEditMasterInventory from './edits/ButtonEditMasterInventory.js';
 import "../../utils/Contents.css";
@@ -14,7 +13,7 @@ function deletepost (id){
     inventory_id: id,
   };
 
-  fetch('/mstinventory_delete', {
+  fetch('/mstinventory/delete', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -44,24 +43,18 @@ function MstInventory(){
       setJson(data);
     });
     if(json !== undefined){
-      const row2 = JSON.parse(json);
-      for(let i = 0; i < row2.length; i++){
-        const item = row2[i];
+      const result = JSON.parse(json);
+      for(let i = 0; i < result.length; i++){
+        const item = result[i];
         rows.push({
           id: item.inventory_id,
           name: item.inventory_name,
           kana: item.inventory_kana,
-          picture: item.picture,
-          category: item.category_id,
+          tag: item.tag,
           jancode: item.jancode,
           skucode: item.skucode,
-          unit_id: item.unit_id,
-          price: item.price,
-          pricecost: item.price_cost,
-          max: item.inventory_max,
-          min: item.inventory_min,
+          unit: item.unit,
           location: item.location,
-          url: item.url,
           note: item.note,
           display: item.display_flag === 1 ? '●' : ''
         });
@@ -97,16 +90,16 @@ function MstInventory(){
         field: 'kana',
         headerName: 'フリガナ'
       },
+      // {
+      //   field: 'picture',
+      //   headerName: '画像',
+      //   sortable: false,
+      //   width: 100,
+      //   renderCell: (params) => <MstInventoryPicture blob={ params.value } />
+      // },
       {
-        field: 'picture',
-        headerName: '画像',
-        sortable: false,
-        width: 100,
-        renderCell: (params) => <MstInventoryPicture blob={ params.value } />
-      },
-      {
-        field: 'category',
-        headerName: 'カテゴリ'
+        field: 'tag',
+        headerName: 'タグ'
       },
       {
         field: 'jancode',
@@ -121,28 +114,8 @@ function MstInventory(){
         headerName: '単位'
       },
       {
-        field: 'price',
-        headerName: '価格'
-      },
-      {
-        field: 'pricecost',
-        headerName: '単位原価'
-      },
-      {
-        field: 'max',
-        headerName: '最大在庫数'
-      },
-      {
-        field: 'min',
-        headerName: '最低在庫数'
-      },
-      {
         field: 'location',
         headerName: '保管場所'
-      },
-      {
-        field: 'url',
-        headerName: 'URL'
       },
       {
         field: 'note',

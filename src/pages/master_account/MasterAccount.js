@@ -50,7 +50,7 @@ function MasterAccount(){
             id: item.user_id,
             name: item.user_name,
             login: item.login_id,
-            authority: item.authority_level === 1 ? "一般" : item.authority_level === 2 ? "管理者" : "",
+            administrator: item.administrator === 1 ? "●" : "",
           });
         }
       }
@@ -85,8 +85,9 @@ function MasterAccount(){
           headerName: 'ユーザーID'
         },
         {
-          field: 'authority',
-          headerName: '権限レベル'
+          field: 'administrator',
+          headerName: '管理者',
+          align: "center"
         }];
 
     return (

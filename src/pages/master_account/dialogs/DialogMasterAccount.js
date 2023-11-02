@@ -2,13 +2,15 @@ import { useState } from "react";
 
 import CommonDialog from "../../../components/commondialogs/CommonDialog.js";
 
-function save (onClose, id, name, login_id, login_password, authority){
+function save (onClose, id, name, login_id, login_password, administrator, displayflag, displayno){
     const json = {
       user_id: id,        
       user_name: name,
       login_id: login_id,
       login_password: login_password,
-      authority_level: authority,
+      administrator: administrator,
+      display_flag: displayflag,
+      display_no: displayno,
       insert_user_id: 0,
     };
   
@@ -36,7 +38,9 @@ function DialogMasterAccount({ open, setOpen, setReload, rowId }){
     const [name, setName] = useState("");
     const [loginid, setLoginID] = useState("");
     const [loginpassword, setPassword] = useState("");
-    const [authority, setAuthority] = useState(1);
+    const [administrator, setAdministrator] = useState(1);
+    const [displayflag, setDisplayflag] = useState(1);
+    const [displayno, setDisplayno] = useState(1);
     if(!open) return;
 
     if(rowId !== 0 && rowId !== id){
@@ -53,7 +57,9 @@ function DialogMasterAccount({ open, setOpen, setReload, rowId }){
               setName(row.user_name);
               setLoginID(row.login_id);
               setPassword(row.login_password);
-              setAuthority(row.authority_level); 
+              setAdministrator(row.administrator);
+              setDisplayflag(row.display_flag);
+              setDisplayno(row.display_no);
             }
         });
       }
@@ -90,28 +96,46 @@ function DialogMasterAccount({ open, setOpen, setReload, rowId }){
         },
         {
             type: "radio",
-            key: "authority",
+            key: "administrator",
             name: "権限レベル",
             Required: true,
-            value: authority,
-            onchange: setAuthority,
+            value: administrator,
+            onchange: setAdministrator,
             selecter: [
               {
-                id: 1,
+                id: 0,
                 name: "一般",
               },
               {
-                id: 2,
+                id: 1,
                 name: "管理者",
               }]
-        }]
+        },
+        {
+          type: "radio",
+          key: "displayno",
+          name: "表示",
+          Required: true,
+          value: displayflag,
+          onchange: setDisplayflag,
+          selecter: [
+            {
+              id: 1,
+              name: "表示する",
+            },
+            {
+              id: 0,
+              name: "表示しない",
+            }]
+      }
+      ]
 
     return (
         <>
             <CommonDialog 
               title={"ユーザーマスタ " + (rowId > 0 ? "-編集-" : "-新規追加-")}
               isOpen={open}
-              onSave={() => save(handleClose, rowId, name, loginid, loginpassword, authority)}
+              onSave={() => save(handleClose, rowId, name, loginid, loginpassword, administrator, displayflag, displayno)}
               onClose={handleClose}
               items={items}
             />

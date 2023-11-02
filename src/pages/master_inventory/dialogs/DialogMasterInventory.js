@@ -2,28 +2,22 @@ import { useState } from "react";
 
 import CommonDialog from "../../../components/commondialogs/CommonDialog.js";
 
-function save (onClose, id, name, kana, picture, category, jan, sku, unit, pri, pricost, max, min, lo, u, n, display){
+function save (onClose, id, name, kana, tag, jan, sku, unit, location, note, display){
     const json = {
       inventory_id: id,
       inventory_name: name,
       inventory_kana: kana,
-      picture: picture,
-      category_id: category,
+      tag: tag,
       jancode: jan,
       skucode: sku,
-      unit_id: unit,
-      price: pri,
-      price_cost: pricost,
-      inventory_max: max,
-      inventory_min: min,
-      location: lo,
-      url: u,
-      note: n,
+      unit: unit,
+      location: location,
+      note: note,
       display_flag: display,
       insert_user_id: 0
     };
   
-    fetch('/mstinventory_insert', {
+    fetch('/mstinventory/insert', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -46,17 +40,11 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
     const [id, setID] = useState(0);
     const [name, setName] = useState("");
     const [kana, setKana] = useState("");
-    const [picture, setPicture] = useState(null);
-    const [category, setCategory] = useState(0);
+    const [tag, setTag] = useState(0);
     const [jancode, setJancode] = useState("");
     const [skucode, setSkucode] = useState("");
-    const [unit, setUnit] = useState(0);
-    const [price, setPrice] = useState(null);
-    const [pricecost, setPricecost] = useState(null);
-    const [max, setMax] = useState(null);
-    const [min, setMin] = useState(null);
+    const [unit, setUnit] = useState("");
     const [location, setLocation] = useState("");
-    const [url, setUrl] = useState("");
     const [note, setNote] = useState("");
     const [display, setDisplay] = useState(1);
 
@@ -69,23 +57,17 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
     const query = new URLSearchParams(params);
     fetch('/mstinventory_edit?' + query)
     .then((res) => res.text()).then((json) => {
-        const row2 = JSON.parse(json);
-        for(let i = 0; i < row2.length; i++){
-          const item = row2[i];
+        const result = JSON.parse(json);
+        for(let i = 0; i < result.length; i++){
+          const item = result[i];
           setID(item.inventory_id);
           setName(item.inventory_name);
           setKana(item.inventory_kana);
-          setPicture(item.picture);
-          setCategory(item.category_id);
+          setTag(item.tag);
           setJancode(item.jancode);
           setSkucode(item.skucode);
-          setUnit(item.unit_id);
-          setPrice(item.price);
-          setPricecost(item.price_cost);
-          setMax(item.inventory_max);
-          setMin(item.inventory_min);
+          setUnit(item.unit);
           setLocation(item.location);
-          setUrl(item.url);
           setNote(item.note);
           setDisplay(item.display_flag);
         }
@@ -101,21 +83,21 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
         setDisplay(display);
     };
 
-    const previewImage = (obj) => {
-        var fileReader = new FileReader();
-        fileReader.onload = (function() {
-          document.querySelector('#dialog-preview').src = fileReader.result;
-          setPicture(fileReader.result);
-        });
+    // const previewImage = (obj) => {
+    //     var fileReader = new FileReader();
+    //     fileReader.onload = (function() {
+    //       document.querySelector('#dialog-preview').src = fileReader.result;
+    //       setPicture(fileReader.result);
+    //     });
       
-        if(obj === null || obj.target.files[0] === undefined) {
-          document.querySelector('#dialog-preview').src = '';
-          setPicture('');
-          return;
-        }
+    //     if(obj === null || obj.target.files[0] === undefined) {
+    //       document.querySelector('#dialog-preview').src = '';
+    //       setPicture('');
+    //       return;
+    //     }
       
-        fileReader.readAsDataURL(obj.target.files[0]);
-    }
+    //     fileReader.readAsDataURL(obj.target.files[0]);
+    // }
   
     const items = [
         {
@@ -136,20 +118,20 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
         },
         {
             type: "text",
-            key: "category",
-            name: "カテゴリ",
+            key: "tag",
+            name: "タグ",
             Required: true,
-            value: category,
-            onchange: setCategory
+            value: tag,
+            onchange: setTag
         },
-        {
-            type: "file",
-            key: "picture",
-            name: "画像",
-            Required: true,
-            value: picture,
-            onchange: previewImage
-        },
+        // {
+        //     type: "file",
+        //     key: "picture",
+        //     name: "画像",
+        //     Required: true,
+        //     value: picture,
+        //     onchange: previewImage
+        // },
         {
             type: "text",
             key: "jancode",
@@ -213,7 +195,7 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
             <CommonDialog 
               title={"在庫マスタ " + (rowid > 0 ? "-編集-" : "-新規追加-")}
               isOpen={open}
-              onSave={() => save(handleClose, rowid, name, kana, picture, category, jancode, skucode, unit, price, pricecost, max, min, location, url, note, display)}
+              onSave={() => save(handleClose, rowid, name, kana, tag, jancode, skucode, unit, location, note, display)}
               onClose={handleClose}
               items={items}
             />
