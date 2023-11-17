@@ -1,7 +1,8 @@
 {
-  "name": "stockcontrol",
-  "version": "0.1.0",
+  "name": "inventorymanagementsystem",
+  "version": "2023.11.15.1",
   "private": true,
+  "-proxy": "https://warm-peak-65722-8399f078d39c.herokuapp.com/",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@date-io/date-fns": "^2.17.0",
@@ -50,5 +51,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "./"
 }

@@ -61,7 +61,7 @@ function InOut(){
             id: item.inout_id,
             flag: item.inout_flag === 1 ? "入庫" : item.inout_flag === 2 ? "出庫" : "",
             datetime: formatDate(new Date(item.inout_datetime), 'yyyy/MM/dd HH:mm'),
-            inventory: item.inventory,
+            quantity: item.quantity,
             note: item.note,
             inventoryname: item.inventory_name
           });
@@ -108,7 +108,7 @@ function InOut(){
           headerName: '在庫名'
         },
         {
-            field: 'inventory',
+            field: 'quantity',
             headerName: '数量'
         },
         {

@@ -1,8 +1,9 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 import Header from "../../components/header/Header";
-import "../../utils/Contents.css";
+import Version from "./version/Version";
 import "./Login.css";
 
 function Login(){
@@ -65,6 +66,7 @@ function Login(){
             <p className={error ? "login-errormessege" : "messagehide"}>ユーザーIDまたはパスワードが違います。</p>
           </div>
         </div>
+        <Version />
       </div>
     );
 };

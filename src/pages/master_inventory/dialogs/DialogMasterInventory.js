@@ -2,12 +2,12 @@ import { useState } from "react";
 
 import CommonDialog from "../../../components/commondialogs/CommonDialog.js";
 
-function save (onClose, id, name, kana, tag, jan, sku, unit, location, note, display){
+function save (onClose, id, name, kana, jan, sku, unit, location, note, display){
     const json = {
       inventory_id: id,
       inventory_name: name,
       inventory_kana: kana,
-      tag: tag,
+      tag: '',
       jancode: jan,
       skucode: sku,
       unit: unit,
@@ -40,7 +40,6 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
     const [id, setID] = useState(0);
     const [name, setName] = useState("");
     const [kana, setKana] = useState("");
-    const [tag, setTag] = useState(0);
     const [jancode, setJancode] = useState("");
     const [skucode, setSkucode] = useState("");
     const [unit, setUnit] = useState("");
@@ -63,7 +62,6 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
           setID(item.inventory_id);
           setName(item.inventory_name);
           setKana(item.inventory_kana);
-          setTag(item.tag);
           setJancode(item.jancode);
           setSkucode(item.skucode);
           setUnit(item.unit);
@@ -116,14 +114,6 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
             value: kana,
             onchange: setKana
         },
-        {
-            type: "text",
-            key: "tag",
-            name: "タグ",
-            Required: true,
-            value: tag,
-            onchange: setTag
-        },
         // {
         //     type: "file",
         //     key: "picture",
@@ -175,7 +165,7 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
         {
             type: "radio",
             key: "display",
-            name: "権限レベル",
+            name: "表示",
             Required: true,
             value: display,
             onchange: setDisplay,
@@ -195,7 +185,7 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }){
             <CommonDialog 
               title={"在庫マスタ " + (rowid > 0 ? "-編集-" : "-新規追加-")}
               isOpen={open}
-              onSave={() => save(handleClose, rowid, name, kana, tag, jancode, skucode, unit, location, note, display)}
+              onSave={() => save(handleClose, rowid, name, kana, jancode, skucode, unit, location, note, display)}
               onClose={handleClose}
               items={items}
             />

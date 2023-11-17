@@ -1,7 +1,22 @@
+.contentslogin{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 16px;
+  height: 100%;
+  width: calc(100% - 200px);
+  height: 100%;
+  min-height: 100vh;
+  background-color: #EBEBEB;
+  margin-left: 0;
+  width: 100%;
+}
+
 .loging-page{
   width: 360px;
   padding: 18vh 0 0;
-  margin: auto;
+  margin: 0 auto;
 }
 .loginform-box {
   position: relative;
