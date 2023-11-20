@@ -8,7 +8,7 @@ import ButtonEditMasterAccount from "./buttonedits/ButtonEditMasterAccount";
 import CommonDelete from "../../components/commondeletes/CommonDelete";
 import "./MasterAccount.css";
 
-function deletepost (id){
+function deletepost(id) {
   const json = {
     user_id: id,
   };
@@ -21,85 +21,88 @@ function deletepost (id){
     },
     body: JSON.stringify(json)
   })
-  .then(response => {
-    if (response.status === 200) {
-      return response.json()
-    } else {
-      console.warn('Something went wrong on api server!');
-    }
-  })
-  .catch(error => {
-    console.error(error);
-  })
+    .then(response => {
+      if (response.status === 200) {
+        return response.json()
+      } else {
+        console.warn('Something went wrong on api server!');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    })
 }
 
-function MasterAccount(){
-    const [reload, setReload] = useState(new Date());
-    const [json, setJson] = useState();
-  
-    const rows = [];
-      fetch('/master/account')
-      .then((res) => res.text()).then((data) => {
-        setJson(data);
-      });
-      if(json !== undefined){
-        const result = JSON.parse(json);
-        for(let i = 0; i < result.length; i++){
-          const item = result[i];
-          rows.push({
-            id: item.user_id,
-            name: item.user_name,
-            login: item.login_id,
-            administrator: item.administrator === 1 ? "●" : "",
-          });
-        }
-      }
-  
-      const cols = [
-        {
-          field: 'deleteBtn',
-          headerName: '削除',
-          sortable: false,
-          width: 90,
-          disableClickEventBubbling: true,
-          renderCell: (params) => <CommonDelete rowId={params.id} setReload={setReload} deletepost={() => deletepost(params.id)} />
-        },
-        {
-          field: 'editBtn',
-          headerName: '編集',
-          sortable: false,
-          width: 90,
-          disableClickEventBubbling: true,
-          renderCell: (params) => <ButtonEditMasterAccount rowId={params.id} setReload={setReload} />
-        },
-        {
-          field: 'id',
-          headerName: 'ID',
-        },
-        {
-          field: 'name',
-          headerName: '名前'
-        },
-        {
-          field: 'login',
-          headerName: 'ユーザーID'
-        },
-        {
-          field: 'administrator',
-          headerName: '管理者',
-          align: "center"
-        }];
+function MasterAccount() {
+  const [reload, setReload] = useState(new Date());
+  const [json, setJson] = useState();
 
-    return (
-        <div className="contents">
-          <SideBar />
-          <Header title={"ユーザーマスタ"}/>
-          <section>
-            <ButtonMasterAccount setReload={setReload} />
-            <CommonGrid rows={rows} cols={cols} />
-          </section>
-        </div>
-    );
+  const rows = [];
+  fetch('/master/account')
+    .then((res) => res.text()).then((data) => {
+      setJson(data);
+    });
+  if (json !== undefined) {
+    const result = JSON.parse(json);
+    for (let i = 0; i < result.length; i++) {
+      const item = result[i];
+      rows.push({
+        id: item.user_id,
+        name: item.user_name,
+        login: item.login_id,
+        administrator: item.administrator === 1 ? "●" : "",
+        notdelete: item.notdelete_flag
+      });
+    }
+  }
+
+  const cols = [
+    {
+      field: 'deleteBtn',
+      headerName: '削除',
+      sortable: false,
+      width: 90,
+      disableClickEventBubbling: true,
+      renderCell: (params) => params.row.notdelete === 1 ? <></> : (<CommonDelete rowId={params.id} setReload={setReload} deletepost={() => deletepost(params.id)} />)
+    },
+    {
+      field: 'editBtn',
+      headerName: '編集',
+      sortable: false,
+      width: 90,
+      disableClickEventBubbling: true,
+      renderCell: (params) => <ButtonEditMasterAccount rowId={params.id} setReload={setReload} />
+    },
+    {
+      field: 'id',
+      headerName: 'ID',
+    },
+    {
+      field: 'name',
+      headerName: '名前',
+      width: 180,
+    },
+    {
+      field: 'login',
+      headerName: 'ユーザーID',
+      width: 180,
+    },
+    {
+      field: 'administrator',
+      headerName: '管理者',
+      align: "center"
+    }];
+
+  return (
+    <div className="contents">
+      <SideBar />
+      <Header title={"ユーザーマスタ"} />
+      <section>
+        <ButtonMasterAccount setReload={setReload} />
+        <CommonGrid rows={rows} cols={cols} />
+      </section>
+    </div>
+  );
 }
 
 export default MasterAccount;

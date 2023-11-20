@@ -1,5 +1,5 @@
-.contents, 
-.contentslogin{
+.contents,
+.contentslogin {
   position: relative;
   box-sizing: border-box;
   margin-left: 200px;
@@ -10,7 +10,15 @@
   min-height: 100vh;
   background-color: #EBEBEB;
 }
-.contentslogin{
+
+.contentslogin {
   margin-left: 0;
   width: 100%;
+}
+
+@media screen and (max-width: 959px) {
+  .contents {
+    margin-left: 0;
+    width: 100vw;
+  }
 }

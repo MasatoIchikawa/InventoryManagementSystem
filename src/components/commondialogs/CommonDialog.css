@@ -1,4 +1,4 @@
-.editdialog{
+.editdialog {
     width: 400px;
     padding: 0 24px;
     margin-bottom: 40px;
@@ -10,9 +10,13 @@
 }
 
 .dialog-label {
-    display: block;
+    display: flex;
     margin-top: 40px;
     font-size: .9em;
+}
+
+.dialog-required {
+    color: red;
 }
 
 .dialog-textbox {
@@ -24,11 +28,12 @@
     outline: none;
     border-bottom: 2px solid #999;
 }
-.dialog-textbox:focus{
+
+.dialog-textbox:focus {
     border-bottom-color: #e20000;
 }
 
-.dialog-numberbox{
+.dialog-numberbox {
     width: 30%;
 }
 
@@ -69,12 +74,13 @@
 .dialog-file {
     padding: 15px 0;
 }
-.dialog-filelabel{
+
+.dialog-filelabel {
     display: flex;
     flex-direction: column;
 }
 
-.dialog-radio{
+.dialog-radio {
     padding: 15px 0;
 }
 

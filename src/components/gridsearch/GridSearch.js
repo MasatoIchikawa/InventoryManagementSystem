@@ -1,6 +1,6 @@
 import "./GridSearch.css";
 
-function GridSearch(){
+function GridSearch() {
     return (
         <section className="gridsearch">
             <button>検索条件を追加</button>

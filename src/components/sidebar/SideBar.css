@@ -1,4 +1,4 @@
-.side{
+.side {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -11,14 +11,62 @@
     height: 100%;
     z-index: 1;
     overflow: auto;
-
 }
 
 .structure,
-.structureunder{
+.structureunder {
     padding: 0;
 }
-.structureunder{
+
+.structureunder {
     margin-top: auto;
     margin-bottom: 16px;
+}
+
+/* .side-hamburger{
+    display: none;
+} */
+
+
+@media screen and (max-width: 959px) {
+    .side {
+        padding-top: 24px;
+    }
+
+    .side-hamburger {
+        width: 40px;
+        height: 25px;
+        position: relative;
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 99;
+    }
+
+    .side-hamburger span {
+        position: absolute;
+        width: 70%;
+        height: 1px;
+        background-color: black;
+    }
+
+    .side-hamburger span:first-of-type {
+        top: 0;
+    }
+
+    .side-hamburger span:nth-of-type(2) {
+        top: 35%;
+    }
+
+    .side-hamburger span:last-of-type {
+        top: 70%;
+    }
+
+    .side-open {
+        transform: translateX(0%);
+    }
+
+    .side-close {
+        transform: translateX(-100%);
+    }
 }

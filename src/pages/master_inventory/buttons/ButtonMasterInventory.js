@@ -4,11 +4,11 @@ import CustomButton from "../../../components/buttonlist/button/CustomButton.js"
 import DialogMasterInventory from "../dialogs/DialogMasterInventory.js";
 import "../../../utils/ButtonList.css";
 
-function ButtonMasterInventory({ setReload }){
+function ButtonMasterInventory({ setReload }) {
     const [open, setOpen] = useState(false);
 
     const handleClickOpenSimple = () => {
-      setOpen(true);
+        setOpen(true);
     };
 
     const buttons = [{
@@ -17,7 +17,7 @@ function ButtonMasterInventory({ setReload }){
     }];
     return (
         <section className="buttonsection">
-            {buttons.map((item) => <CustomButton props={item} key={item.name}/>)}
+            {buttons.map((item) => <CustomButton props={item} key={item.name} />)}
 
             <DialogMasterInventory rowid={0} open={open} setOpen={setOpen} setReload={setReload} />
         </section>

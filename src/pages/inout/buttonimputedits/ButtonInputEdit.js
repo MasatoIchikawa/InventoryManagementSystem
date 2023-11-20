@@ -16,7 +16,7 @@ const ButtonInputEdit = ({ rowId, setReload }) => {
         編集
       </Button>
 
-      <DialogInput open={open} setOpen={setOpen} setReload={setReload} inoutflag={1} rowId={rowId}  />
+      <DialogInput open={open} setOpen={setOpen} setReload={setReload} inoutflag={1} rowId={rowId} />
     </div>
   );
 };

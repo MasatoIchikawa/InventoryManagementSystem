@@ -4,11 +4,11 @@ import CustomButton from "../../../components/buttonlist/button/CustomButton.js"
 import DialogMasterAccount from "../dialogs/DialogMasterAccount.js";
 import "../../../utils/ButtonList.css";
 
-function ButtonMasterAccount({ setReload }){
+function ButtonMasterAccount({ setReload }) {
     const [open, setOpen] = useState(false);
 
     const handleClickOpenSimple = () => {
-      setOpen(true);
+        setOpen(true);
     };
 
     const buttons = [{
@@ -17,7 +17,7 @@ function ButtonMasterAccount({ setReload }){
     }];
     return (
         <section className="buttonsection">
-            {buttons.map((item) => <CustomButton props={item} key={item.name}/>)}
+            {buttons.map((item) => <CustomButton props={item} key={item.name} />)}
 
             <DialogMasterAccount rowid={0} open={open} setOpen={setOpen} setReload={setReload} />
         </section>

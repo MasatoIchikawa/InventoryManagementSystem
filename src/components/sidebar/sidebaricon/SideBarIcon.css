@@ -1,9 +1,10 @@
-a{
-    text-decoration:none;
-    color: #C0C0C0;;
+a {
+    text-decoration: none;
+    color: #C0C0C0;
+    ;
 }
 
-.sideiconwrapper{
+.sideiconwrapper {
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -11,24 +12,27 @@ a{
     padding: 4px;
     border-radius: 8px;
 }
-.sideiconwrapper:hover{
+
+.sideiconwrapper:hover {
     cursor: pointer;
     background-color: #474747;
 }
 
-.sidebox{
+.sidebox {
     display: flex;
     user-select: none;
 }
-.sidebox.child{
+
+.sidebox.child {
     padding-left: 16px;
 }
 
-.sideicon{
+.sideicon {
     width: 24px;
     height: 24px;
 }
-.sideicontext{
+
+.sideicontext {
     font-size: 0.9rem;
     width: 90%;
     margin: 0;

@@ -16,7 +16,7 @@ const ButtonEditMasterAccount = ({ rowId, setReload }) => {
         編集
       </Button>
 
-      <DialogMasterAccount open={open} setOpen={setOpen} setReload={setReload} rowId={rowId}  />
+      <DialogMasterAccount open={open} setOpen={setOpen} setReload={setReload} rowId={rowId} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import "./Version.css";
 
-function Version(){
+function Version() {
     const packageJson = require('../../../../package.json');
 
     return (

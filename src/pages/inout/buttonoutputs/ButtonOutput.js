@@ -3,11 +3,11 @@ import { useState } from "react";
 import CustomButton from "../../../components/buttonlist/button/CustomButton.js";
 import DialogInOut from "../dialoginouts/DialogInOut.js";
 
-function ButtonOutput({ setReload }){
+function ButtonOutput({ setReload }) {
     const [open, setOpen] = useState(false);
 
     const handleClickOpenSimple = () => {
-      setOpen(true);
+        setOpen(true);
     };
 
     const item = {
@@ -16,7 +16,7 @@ function ButtonOutput({ setReload }){
     };
     return (
         <>
-            <CustomButton props={item} key={item.name}/>
+            <CustomButton props={item} key={item.name} />
             <DialogInOut open={open} setOpen={setOpen} setReload={setReload} inoutflag={2} />
         </>
     );

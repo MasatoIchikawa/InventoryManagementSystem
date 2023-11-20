@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../SideBar.css";
 import "./SideBarIcon.css";
 
-function StockList({ item }){
+function StockList({ item }) {
     return (
         <div className="sideiconwrapper">
             <Link to={item.linkto} className="sidebox">

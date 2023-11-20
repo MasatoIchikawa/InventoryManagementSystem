@@ -8,7 +8,7 @@ import SideBar from '../../components/sidebar/SideBar.js';
 import Header from '../../components/header/Header.js';
 import "../../utils/Contents.css";
 
-function deletepost (id){
+function deletepost(id) {
   const json = {
     inventory_id: id,
   };
@@ -21,19 +21,19 @@ function deletepost (id){
     },
     body: JSON.stringify(json)
   })
-  .then(response => {
-    if (response.status === 200) {
-      return response.json()
-    } else {
-      console.warn('Something went wrong on api server!');
-    }
-  })
-  .catch(error => {
-    console.error(error);
-  })
+    .then(response => {
+      if (response.status === 200) {
+        return response.json()
+      } else {
+        console.warn('Something went wrong on api server!');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    })
 }
 
-function formatDate (date, format) {
+function formatDate(date, format) {
   format = format.replace(/yyyy/g, date.getFullYear());
   format = format.replace(/MM/g, ('0' + (date.getMonth() + 1)).slice(-2));
   format = format.replace(/dd/g, ('0' + date.getDate()).slice(-2));
@@ -44,89 +44,89 @@ function formatDate (date, format) {
   return format;
 };
 
-function InOut(){
-    const [reload, setReload] = useState(new Date());
-    const [json, setJson] = useState();
+function InOut() {
+  const [reload, setReload] = useState(new Date());
+  const [json, setJson] = useState();
 
-    const rows = [];
-      fetch('/inout')
-      .then((res) => res.text()).then((data) => {
-        setJson(data);
+  const rows = [];
+  fetch('/inout')
+    .then((res) => res.text()).then((data) => {
+      setJson(data);
+    });
+  if (json !== undefined) {
+    const r = JSON.parse(json);
+    for (let i = 0; i < r.length; i++) {
+      const item = r[i];
+      rows.push({
+        id: item.inout_id,
+        flag: item.inout_flag === 1 ? "入庫" : item.inout_flag === 2 ? "出庫" : "",
+        datetime: formatDate(new Date(item.inout_datetime), 'yyyy/MM/dd HH:mm'),
+        quantity: item.quantity,
+        note: item.note,
+        inventoryname: item.inventory_name
       });
-      if(json !== undefined){
-        const r = JSON.parse(json);
-        for(let i = 0; i < r.length; i++){
-          const item = r[i];
-          rows.push({
-            id: item.inout_id,
-            flag: item.inout_flag === 1 ? "入庫" : item.inout_flag === 2 ? "出庫" : "",
-            datetime: formatDate(new Date(item.inout_datetime), 'yyyy/MM/dd HH:mm'),
-            quantity: item.quantity,
-            note: item.note,
-            inventoryname: item.inventory_name
-          });
-        }
-      }
-  
-      const cols = [
-        {
-          field: 'deleteBtn',
-          headerName: '削除',
-          sortable: false,
-          width: 90,
-          disableClickEventBubbling: true,
-          renderCell: (params) => <CommonDelete rowId={params.id} setReload={setReload} deletepost={() => deletepost(params.id)} />
-        },
-        {
-          field: 'editBtn',
-          headerName: '編集',
-          sortable: false,
-          width: 90,
-          disableClickEventBubbling: true,
-          renderCell: (params) => <ButtonInputEdit rowId={ params.id } setReload={setReload}  />
-        },
-        {
-            field: 'id',
-            headerName: 'ID',
-            width: 40,
-            align: "center"
-        },
-        {
-            field: 'flag',
-            headerName: '入出庫',
-            width: 80,
-            align: "center"
-        },
-        {
-            field: 'datetime',
-            headerName: '入出庫日時',
-            width: 160,
-            align: "center"
-        },
-        {
-          field: 'inventoryname',
-          headerName: '在庫名'
-        },
-        {
-            field: 'quantity',
-            headerName: '数量'
-        },
-        {
-            field: 'note',
-            headerName: 'コメント'
-        }
-      ]
+    }
+  }
 
-    return (
-        <div className="contents">
-          <SideBar />
-          <Header title={"入出庫記録"}/>
-          <section>
-            <InOutButton setReload={setReload}/>
-            <CommonGrid rows={rows} cols={cols} />
-          </section>
-        </div>
-    );
+  const cols = [
+    {
+      field: 'deleteBtn',
+      headerName: '削除',
+      sortable: false,
+      width: 90,
+      disableClickEventBubbling: true,
+      renderCell: (params) => <CommonDelete rowId={params.id} setReload={setReload} deletepost={() => deletepost(params.id)} />
+    },
+    {
+      field: 'editBtn',
+      headerName: '編集',
+      sortable: false,
+      width: 90,
+      disableClickEventBubbling: true,
+      renderCell: (params) => <ButtonInputEdit rowId={params.id} setReload={setReload} />
+    },
+    {
+      field: 'id',
+      headerName: 'ID',
+      width: 40,
+      align: "center"
+    },
+    {
+      field: 'flag',
+      headerName: '入出庫',
+      width: 80,
+      align: "center"
+    },
+    {
+      field: 'datetime',
+      headerName: '入出庫日時',
+      width: 160,
+      align: "center"
+    },
+    {
+      field: 'inventoryname',
+      headerName: '在庫名'
+    },
+    {
+      field: 'quantity',
+      headerName: '数量'
+    },
+    {
+      field: 'note',
+      headerName: 'コメント'
+    }
+  ]
+
+  return (
+    <div className="contents">
+      <SideBar />
+      <Header title={"入出庫記録"} />
+      <section>
+        <InOutButton setReload={setReload} />
+        <CommonGrid rows={rows} cols={cols} />
+      </section>
+    </div>
+  );
 }
 
 export default InOut;

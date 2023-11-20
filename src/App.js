@@ -7,17 +7,17 @@ import InOut from './pages/inout/InOut.js';
 import Login from './pages/logins/Login.js';
 import MasterAccount from './pages/master_account/MasterAccount.js';
 
-function App(){
+function App() {
     return (
         <main>
-              <Routes>
-                  <Route path="/" element={<Login />} />
-                  <Route path="/List" element={<InventoryList />} />
-                  <Route path="/Inout" element={<InOut />} />
-                  <Route path="/MstInventory" element={<MstInventory />} />
-                  <Route path="/MasterAccount" element={<MasterAccount />} />
-                  <Route path="*" element={<Empty />} />
-              </Routes>
+            <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/List" element={<InventoryList />} />
+                <Route path="/Inout" element={<InOut />} />
+                <Route path="/MstInventory" element={<MstInventory />} />
+                <Route path="/MasterAccount" element={<MasterAccount />} />
+                <Route path="*" element={<Empty />} />
+            </Routes>
         </main>
     );
 }

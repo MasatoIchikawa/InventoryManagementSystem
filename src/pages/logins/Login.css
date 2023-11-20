@@ -1,4 +1,4 @@
-.contentslogin{
+.contentslogin {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -13,11 +13,12 @@
   width: 100%;
 }
 
-.loging-page{
+.loging-page {
   width: 360px;
   padding: 18vh 0 0;
   margin: 0 auto;
 }
+
 .loginform-box {
   position: relative;
   z-index: 1;
@@ -27,7 +28,7 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-  
+
 .loginform-box input {
   font-family: "Roboto", sans-serif;
   outline: 0;
@@ -39,7 +40,7 @@
   box-sizing: border-box;
   font-size: 14px;
 }
-  
+
 .loginform-box button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
@@ -54,21 +55,23 @@
   transition: all 0.4 ease;
   cursor: pointer;
 }
-  
-.loginform-box button:hover, .loginform-box button:active, .loginform-box button:focus {
+
+.loginform-box button:hover,
+.loginform-box button:active,
+.loginform-box button:focus {
   opacity: 0.7;
 }
-  
+
 .login-errormessege {
   visibility: visible;
   margin: 15px 0 0;
-  color: #ea4335 ;
+  color: #ea4335;
   font-size: 0.85rem;
 }
 
 .messagehide {
   visibility: hidden;
   margin: 15px 0 0;
-  color: #ea4335 ;
+  color: #ea4335;
   font-size: 0.85rem;
 }
