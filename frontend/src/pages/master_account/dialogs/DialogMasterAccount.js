@@ -3,17 +3,19 @@ import { useState } from "react";
 import CommonDialog from "../../../components/commondialogs/CommonDialog.js";
 
 function save(onClose, id, name, login_id, login_password, administrator, notdelete, displayno) {
+  const CryptoJS = require("crypto-js");
   const json = {
     user_id: id,
     user_name: name,
     login_id: login_id,
-    login_password: login_password,
+    login_password: CryptoJS.SHA256(login_password).toString(CryptoJS.enc.Hex),
     administrator: administrator,
     notdelete_flag: notdelete,
     display_no: displayno,
     insert_user_id: 0,
   };
 
+  console.log(json);
   fetch('/master/account/insert', {
     method: 'POST',
     headers: {
@@ -56,16 +58,27 @@ function DialogMasterAccount({ open, setOpen, setReload, rowId }) {
           setID(row.user_id);
           setName(row.user_name);
           setLoginID(row.login_id);
-          setPassword(row.login_password);
+          setPassword("");
           setAdministrator(row.administrator);
           setNotdelete(row.notdelete_flag);
           setDisplayno(row.display_no);
         }
       });
   }
-
+  else if(id === undefined){
+    
+    setID(0);
+    setName("");
+    setLoginID("");
+    setPassword("");
+    setAdministrator(0);
+    setNotdelete(0);
+    setDisplayno(1);
+  }
+  
   const handleClose = () => {
     setOpen(false);
+    setID(undefined);
     setReload(new Date());
   };
 

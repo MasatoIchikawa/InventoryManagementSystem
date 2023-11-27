@@ -49,7 +49,6 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }) {
 
   if (!open) return;
   if (rowid !== 0 && rowid !== id) {
-    console.log(rowid);
     const params = { "inventory_id": rowid };
     const query = new URLSearchParams(params);
     fetch('/mstinventory_edit?' + query)
@@ -69,9 +68,21 @@ function DialogMasterInventory({ rowid, open, setOpen, setReload }) {
         }
       });
   }
+  else if(id === undefined){
+    setID(0);
+    setName("");
+    setKana("");
+    setJancode("");
+    setSkucode("");
+    setUnit("");
+    setLocation("");
+    setNote("");
+    setDisplay(1);
+  }
 
   const handleClose = () => {
     setOpen(false);
+    setID(undefined);
     setReload(new Date());
   };
 

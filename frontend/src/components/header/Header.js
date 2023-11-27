@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
 function Header({ title, id, password }) {
+  const CryptoJS = require("crypto-js");
   const navigate = useNavigate();
   const [name, setName] = useState("");
 
@@ -13,8 +14,9 @@ function Header({ title, id, password }) {
   useLayoutEffect(() => {
     const params = {
       "login_id": id !== undefined ? id : login_id,
-      "login_password": password !== undefined ? password : login_password
+      "login_password": password !== undefined ?  CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex) : login_password
     };
+
     const query = new URLSearchParams(params);
     fetch('/login?' + query)
       .then((res) => res.text()).then((json) => {

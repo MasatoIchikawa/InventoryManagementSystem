@@ -76,6 +76,7 @@ function MasterAccount() {
     {
       field: 'id',
       headerName: 'ID',
+      width: 30,
     },
     {
       field: 'name',

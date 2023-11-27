@@ -5,24 +5,26 @@
 const express = require('express');
 const mysql = require('mysql2');
 const app = express();
+const path = require('path');
 const port = 3001;
-// const port = 3306;
+// const port = process.env.PORT || 3006;
 
 app.use(express.json());
-
-const connection = mysql.createConnection({
-    host: 'eanl4i1omny740jw.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    user: 'f4l8tyroombu7krp',
-    password: 'd0azhfyify5axnt4',
-    database: 'o9patnasz3100ghx'
-});
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'xeno1508',
-//   database: 'stock'
+//     host: 'eanl4i1omny740jw.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+//     user: 'f4l8tyroombu7krp',
+//     password: 'd0azhfyify5axnt4',
+//     database: 'o9patnasz3100ghx'
 // });
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'xeno1508',
+  database: 'stock'
+});
 
 app.get('/', function (request, response) {
   response.send('Hello Worlds!\n');
@@ -66,7 +68,6 @@ app.get('/mstinventory_edit', (req, res) => {
         console.log(error)
       }
       else {
-        console.log(result.inventory_id);
         res.status(200).json(result);
       }
     });
@@ -200,6 +201,7 @@ app.post('/input/insert', async (req, res, next) => {
       })
     }
 
+    const id = req.body.inout_id !== 0 ? req.body.inout_id : "(SELECT IFNULL(max_id + 1, 1) from (SELECT max(inout_id) AS max_id FROM t_inout) AS temp)";
     const insert = `INSERT t_inout(
             inout_id,
             inout_flag,
@@ -212,13 +214,13 @@ app.post('/input/insert', async (req, res, next) => {
             delete_at,
             insert_user_id
             )
-              VALUES((SELECT IFNULL(max_id + 1, 1) from (SELECT max(inout_id) AS max_id FROM t_inout) AS temp), ?, ?, ?, ?, ?, NOW(), NULL, NULL, ?)`;
+              VALUES(${id}, ?, ?, ?, ?, ?, NOW(), NULL, NULL, ?)`;
 
     const insertparam = [
       req.body.inout_flag,
       req.body.inout_datetime,
       req.body.inventory_id,
-      req.body.inventory,
+      req.body.quantity,
       req.body.note,
       req.body.insert_user_id
     ];
@@ -361,7 +363,7 @@ app.post('/master/account/insert', async (req, res, next) => {
             delete_at,
             insert_user_id
             )
-              VALUES(${id}, ?, ?, ?, ?, ?, ?, NOW(), NULL, NULL, ?)`;
+            VALUES(${id}, ?, ?, ?, ?, ?, ?, NOW(), NULL, NULL, ?)`;
 
     const insertparam = [
       req.body.user_name,

@@ -2,13 +2,13 @@ import { useState } from "react";
 
 import CommonDialog from "../../../components/commondialogs/CommonDialog.js";
 
-function save(onClose, id, flag, datetime, inventory_id, inventory, note) {
+function save(onClose, id, flag, datetime, inventory_id, quantity, note) {
   const json = {
     inout_id: id,
     inout_flag: flag,
     inout_datetime: new Date(datetime).toLocaleString('ja-JP'),
     inventory_id: inventory_id,
-    inventory: inventory,
+    quantity: quantity,
     note: note,
     insert_user_id: 0
   };
@@ -39,7 +39,7 @@ function DialogInOut({ open, setOpen, setReload, inoutflag, rowId }) {
   const [date, setDate] = useState(new Date());
   const [flag, setFlag] = useState(inoutflag);
   const [inventory, setInventory] = useState(0);
-  const [number, setNumber] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState("");
   if (!open) return;
 
@@ -73,14 +73,23 @@ function DialogInOut({ open, setOpen, setReload, inoutflag, rowId }) {
           setFlag(item.inout_flag);
           setDate(item.inout_datetime);
           setInventory(item.inventory_id);
-          setNumber(item.inventory);
+          setQuantity(item.quantity);
           setNote(item.note);
         }
       });
   }
+  else if(id === undefined){
+    setID(0);
+    setFlag(inoutflag);
+    setDate(new Date());
+    setInventory(0);
+    setQuantity(0);
+    setNote("");
+  }
 
   const handleClose = () => {
     setOpen(false);
+    setID(undefined);
     setReload(new Date());
   };
 
@@ -104,11 +113,11 @@ function DialogInOut({ open, setOpen, setReload, inoutflag, rowId }) {
     },
     {
       type: "number",
-      key: "number",
+      key: "quantity",
       name: "数量",
       Required: true,
-      value: number,
-      onchange: setNumber,
+      value: quantity,
+      onchange: setQuantity,
     },
     {
       type: "text",
@@ -125,7 +134,7 @@ function DialogInOut({ open, setOpen, setReload, inoutflag, rowId }) {
       <CommonDialog
         title={title + "登録 " + (rowId > 0 ? "-編集-" : "-新規追加-")}
         isOpen={open}
-        onSave={() => save(handleClose, id, flag, date, inventory, number, note)}
+        onSave={() => save(handleClose, id, flag, date, inventory, quantity, note)}
         onClose={handleClose}
         items={items}
       />

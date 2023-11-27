@@ -1,12 +1,19 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 import Header from "../../components/header/Header";
 import Version from "./version/Version";
 import "./Login.css";
 
+async function digestMessage(message) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(message);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return hash;
+}
+
 function Login() {
+  const CryptoJS = require("crypto-js");
   const navigate = useNavigate();
 
   const [id, setID] = useState("");
@@ -35,7 +42,7 @@ function Login() {
   const handlelogin = () => {
     const params = {
       "login_id": id,
-      "login_password": password
+      "login_password": CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)
     };
     const query = new URLSearchParams(params);
     fetch('/login?' + query)

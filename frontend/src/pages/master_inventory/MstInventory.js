@@ -81,10 +81,12 @@ function MstInventory() {
     {
       field: 'id',
       headerName: 'ID',
+      width: 30,
     },
     {
       field: 'name',
-      headerName: '名前'
+      headerName: '名前',
+      width: 180,
     },
     {
       field: 'kana',

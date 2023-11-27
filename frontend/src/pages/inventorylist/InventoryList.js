@@ -39,12 +39,6 @@ function InventoryList() {
 
   const cols = [
     {
-      field: 'id',
-      headerName: 'ID',
-      width: 40,
-      align: "center"
-    },
-    {
       field: 'inventory_name',
       headerName: '名前',
       width: 180,
